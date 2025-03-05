@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/asset/style.css">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Profile</title>
 </head>
@@ -12,7 +12,7 @@
     <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
 
         <div class="flex justify-center mb-3">
-            <img src="/img/GALA.jpg" 
+            <img src="{{ asset('assets/img/GALA.jpg') }}" 
             alt="Profile" 
             class="w-60 h-60 rounded-full border-4 border-gray-300 object-cover">
        
