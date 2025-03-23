@@ -1,11 +1,25 @@
+@extends('layouts.app')
+
+@section('content')
+<!-- 
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en">  -->
+<!-- <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form User</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+    
+    
+    
+ </head>   -->
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary via-secondary to-accent font-poppins">
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    </style>
+        <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -23,12 +37,6 @@
             }
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-    </style>
-</head>
-<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary via-secondary to-accent font-poppins">
-
 <div class="relative w-full max-w-md p-1 bg-gradient-to-r from-secondary to-accent rounded-lg">
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md border border-gray-200">
         <h2 class="text-2xl font-bold text-dark text-center mb-6 tracking-wide">Tambah User</h2>
@@ -86,5 +94,13 @@
         </form>
     </div>
 
-</body>
-</html>
+
+  </body>
+ <!-- </html>  -->
+ @endsection
+ 
+
+
+
+
+
