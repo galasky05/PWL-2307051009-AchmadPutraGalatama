@@ -1,54 +1,88 @@
 @extends('layouts.app')
 
+@section('title', 'User List')
 @section('content')
+<div style="background-color: #e9f0f7; min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container">
 
-<div class="container mt-5">
-    <!-- Pastikan Judul Tampil -->
-    <h2 class="text-center text-dark fw-bold mb-3">Daftar Pengguna</h2>
-
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body bg-light p-4 rounded-bottom">
-            <!-- Deskripsi Singkat -->
-            <p class="text-muted text-center fst-italic">
-                Berikut adalah daftar pengguna yang terdaftar dalam sistem. Data ini mencakup informasi dasar seperti ID, Nama, NPM, dan Kelas.
-            </p>
-
-            <!-- Menampilkan Jumlah Pengguna -->
-            <p class="fw-bold text-center fs-5">
-                Total Pengguna: <span class="text-primary">{{ $users->count() }}</span>
-            </p>
-
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover shadow-sm">
-                    <thead class="table-dark">
-                        <tr class="text-center">
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>NPM</th>
-                            <th>Kelas</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <tr class="align-middle">
-                                <td class="text-center fw-semibold">{{ $user->id }}</td>
-                                <td class="text-capitalize">{{ $user->nama }}</td>
-                                <td class="text-center">{{ $user->npm }}</td>
-                                <td class="text-center">{{ $user->nama_kelas }}</td>
-                                <td class="text-center"></td> <!-- Kolom aksi tetap dikosongkan -->
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+        <!-- Judul Halaman & Tombol Tambah -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+            <div>
+                <h2 class="fw-bold text-dark mb-0">Daftar Pengguna</h2>
+                <p class="text-muted fst-italic mb-0">Data mencakup ID, Nama, NPM, Kelas, dan Foto pengguna.</p>
             </div>
+            <a href="{{ route('user.create') }}" class="btn btn-outline-primary d-flex align-items-center gap-2 mt-3 mt-md-0">
+                <i class="bi bi-person-plus-fill"></i> Tambah Pengguna
+            </a>
+        </div>
 
-            <!-- Catatan di Bawah Tabel -->
-            <p class="text-muted mt-3 text-center fst-italic">
-                Jika ada kesalahan data, silakan hubungi <span class="fw-bold text-danger">administrator</span> untuk perbaikan.
-            </p>
+        <!-- Kartu Tabel Pengguna -->
+        <div class="card border-0 shadow" style="border-radius: 16px; background-color: #ffffff;">
+            <div class="card-body p-4">
+
+                <!-- Jumlah Pengguna -->
+                <div class="text-center mb-4">
+                    <span class="fs-5 fw-semibold">Total Pengguna: </span>
+                    <span class="fs-5 text-primary fw-bold">{{ $users->count() }}</span>
+                </div>
+
+                <!-- Tabel -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle" style="border-radius: 12px;">
+                        <thead class="table-primary text-dark">
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">NPM</th>
+                                <th class="text-center">Kelas</th>
+                                <th class="text-center">Foto</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($users as $user)
+                                <tr>
+                                    <td class="text-center">{{ $user->id }}</td>
+                                    <td class="text-start w-25">{{ $user->nama }}</td>
+                                    <td class="text-center">{{ $user->npm }}</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-info text-dark">{{ $user->nama_kelas }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        @if($user->foto && file_exists(public_path('upload/img/' . $user->foto)))
+                                            <img src="{{ asset('upload/img/' . $user->foto) }}" 
+                                                 alt="Foto {{ $user->nama }}" 
+                                                 class="img-thumbnail rounded-2" 
+                                                 style="width: 60px; height: 60px; object-fit: cover;">
+                                        @else
+                                            <span class="text-muted fst-italic">Tidak ada</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('users.show', $user->id) }}" 
+                                           class="btn btn-sm btn-info text-white mb-1">
+                                            <i class="bi bi-eye-fill"></i> Detail
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-muted fst-italic text-center">Tidak ada data pengguna.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Footer Info -->
+                <div class="text-center mt-4">
+                    <p class="text-muted fst-italic">
+                        Jika ada kesalahan data, silakan hubungi <span class="text-danger fw-semibold">administrator</span>.
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
-
 @endsection

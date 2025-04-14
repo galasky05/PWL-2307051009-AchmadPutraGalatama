@@ -14,6 +14,9 @@
  </head>   -->
 
 
+<form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+
+
 <script src="https://cdn.tailwindcss.com"></script>
 <body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary via-secondary to-accent font-poppins">
 <style>
@@ -84,7 +87,12 @@
                 </select>
             </div>
 
-            <!-- Tombol Submit dengan Gradasi, Glow, dan Animasi -->
+            <div>
+                <label for="foto" class="form-label">Foto</label>
+                <input type="file" id="foto" name="foto"><br><br>
+            </div>
+
+            
             <button type="submit" 
                 class="w-full bg-gradient-to-r from-primary to-accent text-white text-base font-bold py-3 rounded-lg 
                 shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-accent/50 
