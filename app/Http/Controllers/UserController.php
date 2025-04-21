@@ -74,8 +74,6 @@ class UserController extends Controller
         // ]);
 
 
-
-
 public $userModel;
 public $kelasModel;
 public function __construct() 
@@ -93,15 +91,70 @@ public function index()
     return view('list_user', $data); 
 }
 
-public function show($id){
+public function show($id)
+{
     $user = $this->userModel->getUser($id);
+    
 
     $data = [
         'title' => 'Profile',
         'user' => $user
-    ];
-
-    return view('profile', $data);
+     ];
+        
+     return view('profile', $data);
 }
+
+public function edit($id)
+    {
+        $user = UserModel::findOrFail($id);
+        $kelasModel = new Kelas();
+        $kelas = $kelasModel->getKelas();
+        $title = 'Edit User';
+        return view('edit_user', compact('user', 'kelas', 'title'));
+    }
+
+public function update(Request $request, $id)
+    {
+        $user = UserModel::findOrFail($id);
+
+        $user->nama = $request->nama;
+        $user->npm = $request->npm;
+        $user->kelas_id = $request->kelas_id;
+
+    if ($request->hasFile('foto')) {
+        // Optional: hapus foto lama kalau ada
+        if ($user->foto && file_exists(public_path('upload/img/' . $user->foto))) {
+            unlink(public_path('upload/img/' . $user->foto));
+        }
+
+        // Simpan file baru
+        $file = $request->file('foto');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('upload/img'), $fileName);
+
+        $user->foto = $fileName;
+       
+
+    }
+
+
+    $user->save();
+
+    return redirect()->route('user.list')->with('success', 'User Berhasil di Update');
+}
+
+public function destroy($id)
+{
+    $user = UserModel::findOrFail($id);
+
+        if ($user->foto && file_exists(public_path('upload/img/' . $user->foto))) {
+            unlink(public_path('upload/img/' . $user->foto));
+        }
+    
+    $user->delete();
+
+    return redirect()->route('user.list')->with('success', 'User has been deleted successfully');
+}
+
 }
 

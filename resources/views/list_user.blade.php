@@ -59,10 +59,25 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
+                                        
                                         <a href="{{ route('users.show', $user->id) }}" 
                                            class="btn btn-sm btn-info text-white mb-1">
-                                            <i class="bi bi-eye-fill"></i> Detail
+                                            <i class="bi bi-eye-fill"></i> View
                                         </a>
+                                    
+                                        <a href="{{ route('user.edit', $user->id) }}" 
+                                           class="btn btn-sm btn-info text-white mb-1">
+                                            <i class="bi bi-eye-fill"></i> Edit
+                                        </a>
+
+                                        <form action="{{ url('/user/' . $user->id . '/delete') }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger text-white mb-1" 
+                                            onclick="return confirm('Yakin ingin menghapus pengguna ini?')">
+                                            <i class="bi bi-trash-fill"></i> Delete
+                                        </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
