@@ -49,14 +49,15 @@
                                         <span class="badge bg-info text-dark">{{ $user->nama_kelas }}</span>
                                     </td>
                                     <td class="text-center">
-                                        @if($user->foto && file_exists(public_path('upload/img/' . $user->foto)))
-                                            <img src="{{ asset('upload/img/' . $user->foto) }}" 
-                                                 alt="Foto {{ $user->nama }}" 
-                                                 class="img-thumbnail rounded-2" 
-                                                 style="width: 60px; height: 60px; object-fit: cover;">
-                                        @else
-                                            <span class="text-muted fst-italic">Tidak ada</span>
-                                        @endif
+                                    @if ($user->foto && file_exists(storage_path('app/public/upload/img/' . $user->foto)))
+    <img src="{{ asset('storage/upload/img/' . $user->foto) }}" 
+         alt="Foto {{ $user->nama }}" 
+         class="img-thumbnail rounded-2" 
+         style="width: 60px; height: 60px; object-fit: cover;">
+@else
+    <span class="text-muted fst-italic">Tidak ada</span>
+@endif
+
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('users.show', $user->id) }}" 

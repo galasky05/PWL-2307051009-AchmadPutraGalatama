@@ -51,7 +51,9 @@ class UserController extends Controller
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $fotoPath = time() . '_' . $foto->getClientOriginalName();
-            $foto->move(public_path('upload/img'), $fotoPath);
+            // $foto->move(public_path('upload/img'), $fotoPath);
+            $foto->storeAs('upload/img', $fotoPath);
+
         } else {
             $fotoPath = null;
         }
